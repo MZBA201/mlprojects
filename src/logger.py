@@ -8,24 +8,26 @@ import os
 # useful for naming log files uniquely.
 from datetime import datetime
 
-# This line creates a log file name based on the current date and time.
-# very time program runs, it creates a new log file with a unique name.
+# Create a log file name with a timestamp
 LOG_FILE = f"{datetime.now().strftime('%m_%d_%Y_%H_%M_%S')}.log"
-# os.getcwd() gives the current directory
-# os.path.join(...) builds a path like
-# Put the log file inside a folder called logs in the current working directory
-logs_path = os.path.join(os.getcwd(),"logs", LOG_FILE)
-# This creates the full folder path 
-# (including logs) if it doesn’t exist already.
-os.makedirs(logs_path, exist_ok=True)
-# This combines the folder path and the log file name into a full file path.
-LOG_FILE_PATH = os.path.join(logs_path, LOG_FILE)
+
+# Path to the logs folder (just the folder)
+logs_folder = os.path.join(os.getcwd(), "logs")
+
+# Make sure the logs folder exists
+os.makedirs(logs_folder, exist_ok=True)
+
+# Final path to the log file inside the logs folder
+LOG_FILE_PATH = os.path.join(logs_folder, LOG_FILE)
 
 # This configures the logging system
 logging.basicConfig(
     filename=LOG_FILE_PATH,
-    format="[%(asctime)s] %(lineno)d %(name)s - %(levelname)s - %(message)s",
+    format="[ %(asctime)s ] %(lineno)d %(name)s - %(levelname)s - %(message)s",
     level=logging.INFO,
+    force=True
 )
+
+
 
 
